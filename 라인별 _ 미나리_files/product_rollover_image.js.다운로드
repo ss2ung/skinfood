@@ -1,0 +1,62 @@
+class ProdctRolloverImage {
+    event_type = {
+        'pc': {
+            'start': "mouseover",
+            'end': "mouseout"
+        },
+        'mobile': {
+            'start': "touchstart",
+            'end': "touchend"
+        }
+    };
+
+    images = [];
+
+    constructor(device) {
+        this.device = device;
+    }
+    event() {
+        document.body.addEventListener(this.event_type[this.device].start, (e) => {
+            this.over(e.target);
+        });
+
+        document.body.addEventListener(this.event_type[this.device].end, (e) => {
+            this.out(e.target);
+        });
+    }
+
+    find(product_uid) {
+        return this.images.find(image => image.uid === product_uid);
+    }
+
+    validation(element) {
+        return (element.nodeName === 'IMG' && element.getAttribute('rollover_onimg') && element.dataset.product_uid);
+    }
+
+    over(target) {
+        if (this.validation(target)) {
+            try {
+                if (!this.find(target.dataset.product_uid)) {
+                    this.images.push({
+                        uid: target.dataset.product_uid,
+                        src: target.src
+                    });
+                }
+                target.src = target.getAttribute('rollover_onimg');
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+    
+    out(target) {
+        if (this.validation(target)) {
+            try {
+                const images = this.find(target.dataset.product_uid);
+                target.src = images.src;
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+}

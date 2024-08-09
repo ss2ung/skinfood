@@ -1,0 +1,12 @@
+/* BASIC css start */
+#hot ul li:hover a {
+    color: #fff;
+}
+
+.swiper_newsban{height:40px; position:relative; background:#ffd22c; display:none;}
+.swiper_newsban .swiper-wrapper .swiper-slide a{color:#222; width:100%; text-align:center; display:inline-block; padding:12.5px 0 12.5px; font-size:17px; line-height:0.8; letter-spacing:0.2px; font-weight:500;}
+.swiper_newsban .swiper-wrapper .swiper-slide a strong{font-weight:bold;}
+.swiper_newsban .clsbtn{width:20px; position:absolute; top:9px; right:23.3vw; z-index:999;}
+
+/* BASIC css end */
+

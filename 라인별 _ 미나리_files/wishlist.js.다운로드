@@ -1,0 +1,201 @@
+/*
+    찜하기 표시
+*/
+function makeshopWishlist() {
+    this.my_wishlist = document.querySelectorAll('.my-wish-list');
+    this.my_wish_count = document.querySelectorAll('.my-wish-count');
+
+    this.isLogin = function () {
+        return (document.cookie.indexOf('logincon=') > -1);
+    }
+
+    this.display = function (param) {
+        var wishlist = [];
+        for (var i=0; i<param.length; i++) {
+            wishlist.push(param[i].uid);
+        }
+
+        for (var i=0; i<this.my_wishlist.length; i++) {
+            if (wishlist.indexOf(this.my_wishlist[i].dataset.uid) > -1) {
+                if (this.my_wishlist[i].dataset.viewtype && this.my_wishlist[i].dataset.viewtype == 'block') {
+                    this.my_wishlist[i].classList.add('wish-on');
+                } else {
+                    this.enabled(this.my_wishlist[i]);
+                }
+            } else {
+                if (this.my_wishlist[i].dataset.viewtype && this.my_wishlist[i].dataset.viewtype == 'block') {
+                    this.my_wishlist[i].classList.remove('wish-on');
+                } else {
+                    this.unenabled(this.my_wishlist[i]);
+                }
+            }
+        }
+    }
+
+    this.wishlist = function () {
+        if (this.my_wishlist.length > 0) {
+            if (this.isLogin()) {
+                var _self = this;
+                this.send(function (response) {
+                    if (response.result) {
+                        _self.display(response.data);
+                    }
+                }, 'mode=wishlist');
+            } else {
+                this.display([]);
+            }
+        }
+    }
+
+    this.wishEvent = function () {
+        var _self = this;
+        for (var i=0; i<this.my_wishlist.length; i++) {
+            if (this.my_wishlist[i].dataset.viewtype && this.my_wishlist[i].dataset.viewtype == 'block') {
+                continue;
+            }
+
+            this.my_wishlist[i].addEventListener("click", function (e) {
+                if (_self.isLogin() === false) {
+                    if (confirm("회원에게만 제공이 되는 서비스입니다.\n우선 로그인을 하여 주시기 바랍니다.")) {
+                        var login_url = (typeof MOBILE_USE != 'undefined' && MOBILE_USE == 1) ? '/m/login.html' :'/shop/member.html';
+                        login_url += location.search ? "?returnurl=" + encodeURIComponent(location.pathname + location.search) : "";
+                        document.location.href = login_url;
+                    }
+                    return;
+                }
+                if (this.dataset.uid) {
+                    _self.send(function (response) {
+                        if (response.result) {
+                            if (response.action === 'remove') {
+                                _self.unenabled(e.target);
+                                _self.wishCountDecrease(e.target);
+                            } else {
+                                _self.enabled(e.target);
+                                _self.wishCountIncrease(e.target);
+
+                                //facebook pixel
+                                if (typeof fbq === 'function' && typeof response.pixel_event_id === 'string' && response.pixel_event_id.length > 0) {
+                                    fbq('track', 'AddToWishlist', {}, {eventID: response.pixel_event_id});
+                                }
+                            }
+                        } else {
+                            if (response.message.length > 0) {
+                                alert(response.message);
+                            }
+                        }
+                    }, 'mode=wish&uid=' + this.dataset.uid);
+                }
+            });
+        }
+    }
+
+    this.enabled = function (el) {
+        if (el.dataset.enabled !== undefined) {
+            el.innerHTML = el.dataset.enabled;
+        } else {
+            el.parentElement.innerHTML = el.parentElement.dataset.enabled;
+        }
+    }
+
+    this.unenabled = function (el) {
+        if (el.dataset.unenabled !== undefined) {
+            el.innerHTML = el.dataset.unenabled;
+        } else {
+            el.parentElement.innerHTML = el.parentElement.dataset.unenabled;
+        }
+    }
+
+    this.observer = function () {
+        if (typeof MutationObserver === 'function' && location.pathname.indexOf('/m/') > -1) {
+            var _self = this;
+            var wishlist_count = _self.my_wishlist.length;
+            var wish_count = _self.my_wish_count.length;
+            var mutationObserver = new MutationObserver(function() {
+                _self.my_wishlist = document.querySelectorAll('.my-wish-list');
+                _self.my_wish_count = document.querySelectorAll('.my-wish-count');
+                if (wishlist_count !== _self.my_wishlist.length || wish_count !== _self.my_wish_count.length) {
+                    wishlist_count = _self.my_wishlist.length;
+                    wish_count = _self.my_wish_count.length;
+                    _self.init();
+                }
+            });
+            mutationObserver.observe(document.body, { 
+                childList: true,
+                subtree: true,
+            });
+        }
+    }
+
+    this.send = function (action, data) {
+        try {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/html/wishlist.action.html", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    action(JSON.parse(xhr.responseText));
+                }
+            }
+            xhr.send(data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    this.wishCount = function () {
+        var _self = this;
+        if (this.my_wish_count.length > 0) {
+            var uids = [];
+            for (var i=0; i<this.my_wish_count.length; i++) {
+                if (this.my_wish_count[i].dataset.uid) {
+                    uids.push(this.my_wish_count[i].dataset.uid);
+                }
+            }
+            if (uids.length > 0) {
+                this.send(function (response) {
+                    if (response.result) {
+                        _self.wishCountDisplay(response.data);
+                    }
+                }, 'mode=wish_count&uids=' + uids);
+            }
+        }
+    }
+
+    this.wishCountDisplay = function (param) {
+        if (typeof param === 'object') {
+            for (var i=0; i<this.my_wish_count.length; i++) {
+                if (this.my_wish_count[i].dataset.uid && param[this.my_wish_count[i].dataset.uid]) {
+                    this.my_wish_count[i].innerHTML = param[this.my_wish_count[i].dataset.uid];
+                } else {
+                    this.my_wish_count[i].innerHTML = 0;
+                }
+            }
+        }
+    }
+
+    this.wishCountIncrease = function (el) {
+        if (this.my_wish_count.length > 0) {
+            for (var i=0; i<this.my_wish_count.length; i++) {
+                if (this.my_wish_count[i].dataset.uid === el.dataset.uid) {
+                    this.my_wish_count[i].innerHTML = parseInt(this.my_wish_count[i].innerHTML) + 1;
+                }
+            }
+        }
+    }
+
+    this.wishCountDecrease = function (el) {
+        if (this.my_wish_count.length > 0) {
+            for (var i=0; i<this.my_wish_count.length; i++) {
+                if (this.my_wish_count[i].dataset.uid === el.dataset.uid) {
+                    this.my_wish_count[i].innerHTML = (parseInt(this.my_wish_count[i].innerHTML) > 0) ? parseInt(this.my_wish_count[i].innerHTML) - 1 : 0;
+                }
+            }
+        }
+    }
+
+    this.init = function () {
+        this.wishlist();
+        this.wishEvent();
+        this.wishCount();
+    }
+}

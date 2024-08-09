@@ -1,0 +1,47 @@
+/* BASIC css start */
+#f2s-rolling-container1 .swiper-container{position:relative; width:100% !important; height: auto !important;}
+#f2s-rolling-container1 .swiper-container .swiper-slide {overflow:inherit; _width:1920px !important}
+#f2s-rolling-container1 .swiper-container .swiper-slide img{ width:100% !important}
+
+
+/* slide */
+#f2s-rolling-container1 .swiper-button-prev{left: 50% !important;margin-left: -570px;display:inline-block; width:18px; height:27px; background:url('/design/skinfood/skinfood/images/icon/main_slide_arr_l.png') no-repeat; background-size: cover; vertical-align:middle; cursor:pointer}
+#f2s-rolling-container1 .swiper-button-next{font-size:0;right: 50% !important;margin-right: -570px;display:inline-block; width:18px; height:24px; background:url('/design/skinfood/skinfood/images/icon/main_slide_arr_r.png') no-repeat; background-size: cover; vertical-align:middle}
+#f2s-rolling-container1 .swiper-pagination{}
+#f2s-rolling-container1 .swiper-pagination-bullet{ opacity:1 !important;display: inline-block;  width: 8px; height: 8px; border-radius: 4px !important; background-image: none; background-color: #ddd;}
+#f2s-rolling-container1 .swiper-pagination-bullet:hover,#f2s-rolling-container1 .swiper-pagination-bullet:active{ border-radius: 4px !important; background-color: #ddd;}
+#f2s-rolling-container1 .swiper-pagination-bullet-active{width: 20px; height: 8px; border-radius: 4px !important; background-image: none; background-color: #222;}
+#f2s-rolling-container1 .swiper-pagination-bullet-active:hover,#f2s-rolling-container1 .swiper-pagination-bullet-active:active{ background-color: #222;}
+
+.main-slide ul.anibanner_navigation_paging_style_1 li ~ li {margin-left: 8px;}
+
+.f2s-swiper{_height:520px !important}
+.swiper-button-next:after,.swiper-button-prev:after {display:none;}
+
+
+
+#layout_config > div{float:unset !important;}
+
+
+.goodsDisplayTextWrap {padding: 0 30px;}
+
+
+#main-review .anibanner_navigation_btn_style_1_prev{
+    width: 84px !important;
+    height: 81px !important;
+    left: -59px !important;
+    top: 141px !important;}
+    
+#main-review .anibanner_navigation_btn_style_1_next{
+    width: 84px !important;
+    height: 81px !important;
+    right: -59px !important;
+    top: 141px !important;}
+    
+
+#vfinder{
+    width: 1140px;
+    margin: 0 auto;
+    text-align: center;}
+/* BASIC css end */
+

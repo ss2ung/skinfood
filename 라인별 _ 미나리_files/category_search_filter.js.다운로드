@@ -1,0 +1,148 @@
+// 분류별 필터
+class CategorySearchFilter {
+    constructor(option) {
+        this.items = [];
+        this.option = option;
+
+        const keyword_items = document.querySelectorAll("input[name^='category_filter_item[']");
+        keyword_items.forEach((element) => {
+            if (element.checked) {
+                this.setItem(element, element.checked);
+                this.filterCloneGenerator();
+            }
+        });
+    }
+
+    setSearchProductCount(search_product_count) {
+        if (document.querySelector('.filter-wrap .total-count')) {
+            document.querySelector('.filter-wrap .total-count').innerHTML = search_product_count + "개 상품";
+        }
+    }
+
+    event() {
+        const keyword_items = document.querySelectorAll("input[name^='category_filter_item[']");
+        keyword_items.forEach((element) => {
+            element.addEventListener('click', (e) => this.itemHandler(e.target, e.target.checked));
+        });
+
+        if (document.querySelector('.filter-wrap .select-filter')) {
+            document.querySelector('.filter-wrap .select-filter').addEventListener('click', (e) => this.cloneHandler(e.target));
+        }
+
+        if (document.querySelector('.filter-wrap .btn-reset')) {
+            document.querySelector('.filter-wrap .btn-reset').addEventListener('click', () => {
+                this.items = [];
+                keyword_items.forEach((element) => {
+                    element.checked = false;
+                });
+                this.filterCloneGenerator();
+                if (this.option.auto_submit) {
+                    this.getProduct();
+                }
+            });
+        }
+
+        if (document.querySelector('.filter-wrap .btn-search')) {
+            document.querySelector('.filter-wrap .btn-search').addEventListener('click', () => {
+                this.getProduct();
+            });
+        }
+    }
+
+    cloneHandler(element) {
+        if (element.dataset.filter_id && element.dataset.keyword_id) {
+            const { filter_id, keyword_id } = element.dataset;
+            this.itemHandler(element, false);
+            if (document.querySelector(`input[name='category_filter_item[${filter_id}]'][value='${keyword_id}']`)) {
+                document.querySelector(`input[name='category_filter_item[${filter_id}]'][value='${keyword_id}']`).checked = false;
+            }
+        }
+    }
+
+    itemHandler(element, checked) {
+        this.setItem(element, checked);
+        this.filterCloneGenerator();
+        if (this.option.auto_submit) {
+            this.getProduct();
+        }
+    }
+
+    filterCloneGenerator()
+    {
+        if (document.querySelector('.filter-wrap .select-filter')) {
+            const html = [];
+            this.items.forEach((item) => {
+                let option_type = (item.option_type && typeof this[item.option_type] === 'function') ? item.option_type : 'keyword';
+                if (!this.option.display_color) {
+                    option_type = 'keyword';
+                }
+                html.push(`<li class="filter-clone">${this[option_type](item)}${this.cloneCloseBtn(item)}</li>`);
+            });
+            document.querySelector('.filter-wrap .select-filter').innerHTML = html.join('');
+        }
+    }
+
+    setItem(element, checked) {
+        if (checked) {
+            this.items.push(element.dataset);
+        } else {
+            const index = this.items.findIndex((item) => item.keyword_id === element.dataset.keyword_id);
+            this.items.splice(index, 1);
+        }
+    }
+
+    cloneCloseBtn(item) {
+        return `<button type="button" class="btn-del" data-filter_id="${item.filter_id}" data-keyword_id="${item.keyword_id}">닫기</button>`;
+    }
+
+    image(item) {
+        const keyword = this.keyword(item);
+        let result = "";
+        if (item.option) {
+            result = `<span class="filter-clone-${item.option_type} color-code" style="background-image:url('${item.option}')"></span>`
+        }
+        result += ` ${keyword}`;
+        return result;
+    }
+
+    text(item) {
+        return this.keyword(item);
+    }
+
+    color(item) {
+        const keyword = this.keyword(item);
+        return `<span class="filter-clone-${item.option_type} color-code" style="background-color:${item.option}"></span> ${keyword}`;
+    }
+
+    keyword(item) {
+        if (!this.option.display_color || (item.option_display === 'all' || !['image', 'color'].includes(item.option_type))) {
+            return `<span class="filter-clone-${item.option_type}_keyword filter-text">${item.keyword}</span>`;
+        }
+        return "";
+    }
+
+    itemParams(items) {
+        const filters = [];
+        if (items.length > 0) {
+            items.forEach((item) => {
+                const index = filters.findIndex((filter) => filter.filter_id === item.filter_id);
+                if (index >= 0) {
+                    filters[index].keyword_ids.push(item.keyword_id)
+                } else {
+                    filters.push({
+                        filter_id: item.filter_id,
+                        keyword_ids: [item.keyword_id]
+                    });
+                }
+            });
+        }
+        return { 
+            search_type: 'category_filter',
+            filter: JSON.stringify(filters),
+        }
+    }
+
+    getProduct() {
+        get_list(1, this.option.xcode, this.option.mcode, this.option.scode, this.option.type, this.option.sort, '', this.itemParams(this.items));
+    }
+}

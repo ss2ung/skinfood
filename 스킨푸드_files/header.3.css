@@ -1,0 +1,217 @@
+/* BASIC css start */
+#MAKESHOPLY19
+
+#detailpage div.cnt{
+    padding: 60px 40px 0;}
+
+
+#dim{
+    z-index: 99 !important;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;}
+    
+#dim.hide{display:none !important;}
+
+/*
+#dim_{
+    z-index: 109 !important;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;}
+    
+#dim_.hide{display:none !important;}
+*/
+
+
+body.lock{overflow:hidden !important}
+
+#maxzone #contents{
+    border-top: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;}
+
+#basketpage table[background="/images/common/gobasket_bg_body.gif"]{display:none}
+
+#blk_scroll_wings{display:none}
+
+#recent-popup #blk_scroll_wings{display:block !important}
+
+.footer-recent__content{background-image:none !important}
+
+.my-wish-list{
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    padding: 0;
+    background-repeat: no-repeat;
+    font-size: 0;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 60px;}
+
+.sub-slide__item-image-icon-button{margin-left: 20px;}
+
+.MS_search_word {
+    box-sizing: border-box;
+    width: 860px;
+    border: none;
+    height: 100%;
+    border-bottom: 2px solid #fdb812;
+    padding: 10px 35px;
+    font-size: 15px;
+    color: #222;
+    outline: none;
+}
+
+
+input[type="checkbox"]{
+    width: 21px !important;
+    height: 21px !important;
+    padding: 0 0 0 20px !IMPORTANT;
+    background: #fff url(/design/skinfood/skinfood/images/icon/icon_checkbox_default.png) no-repeat left top; cursor:pointer; 
+    -webkit-appearance: inherit;
+}
+
+input[type="checkbox"]:checked{
+    background: #fff url(/design/skinfood/skinfood/images/icon/icon_checkbox_active.png) no-repeat left top; cursor:pointer; 
+    font-weight: bold;
+}
+    
+
+
+input[type="radio"]{
+    width: 21px !important;
+    height: 21px !important;
+    padding: 0 0 0 20px !IMPORTANT;
+    background: #fff url(/design/skinfood/skinfood/images/icon/icon_radio_default.png) no-repeat left top; cursor:pointer; 
+    -webkit-appearance: inherit;
+}
+
+
+
+input[type="radio"]:checked{
+    background: #fff url(/design/skinfood/skinfood/images/icon/icon_radio_active.png) no-repeat left top; cursor:pointer; 
+    font-weight: bold;
+}
+    
+    
+    
+#chkwrap .cont ul li a{
+    margin-left: 6px;
+    line-height: 17px !important;}
+    
+    
+    
+#layout_header .nav_wrap .nav li{vertical-align: initial !important}
+.gnb__logo{top:-1px !important;}
+
+
+.MS_input_txt,.txt-frm{
+    width: 100%;
+    height: 80px !important;
+    line-height: 1 !important;
+    padding: 36px 19px 28px !important;
+    border: 1px solid #ddd !important;
+    background-color: #fff !important;
+    box-sizing: border-box;
+    font-size: 18px;
+    color: #222;
+    box-sizing: border-box;.}
+
+
+
+
+/* 다찾다 자동완성*/
+.search-auto-complete-list { display:none; z-index:1; position:absolute; top:40px; left:0; border:1px solid #ddd; border-top:1px solid #000; line-height:14px; background:#fff; }
+.search-auto-complete-list ul { width:202px; padding:4px 0 6px; border-bottom:1px solid #ddd; }
+.search-auto-complete-list ul li { text-align:left; }
+.search-auto-complete-list ul li.on { background:#f3f3f3; }
+.search-auto-complete-list ul li a { display:block; padding:8px 14px 7px; color:#000; background:none; font-family:'dotum'; font-size:12px; letter-spacing:-1px; }
+.search-auto-complete-list ul li a strong { color:#ab3e41; }
+.search-auto-complete-list ul li a:hover { background:#f2f2f2; }
+.search-auto-complete-list ul li a:hover span { border-bottom:1px solid #000; }
+.search-auto-complete-list .search-list-close { display:block; padding:10px 11px; text-align:right; color:#999; font-size:11px; }
+
+
+/* 다찾다 검색 파인더 */
+#allfinder-layer { z-index: 9999; position: fixed; top: 50px; right: 100px; width: 1000px; zoom: 1; overflow: hidden; }
+#allfinder-layer .finder-body { display:none; z-index:1; position: relative; width: 998px; padding:35px 40px 5px; max-height: 800px; overflow-x: hidden; overflow-y: auto; box-sizing: border-box; border:1px solid #666; background:#fff; }
+#allfinder-layer .finder-body .finder-close { position: absolute; top: 15px; right: 10px; font-size:24px; color:#000; }
+#allfinder-ctr { z-index: 10000; position: fixed; top: 50px; right: 0; width: 100px; height:100px; }
+#allfinder-ctr a { display:block; width:100%; height:100%; background:url('/images/common/allfinder_ctrl_pc.png') no-repeat right top; border:none; outline:none; font-size:0; }
+
+
+.all-finder-layer .finder-body .finder-tbl table { border:1px solid #ccc; border-top:1px solid #000; }
+.all-finder-layer .finder-body .finder-tbl th, 
+.all-finder-layer .finder-body .finder-tbl td { height: 40px; border-top: 1px solid #e5e5e5; font-size: 13px; font-family:'Malgun Gothic'; color: #000; }
+.all-finder-layer .finder-body .finder-tbl tr:first-child th,
+.all-finder-layer .finder-body .finder-tbl tr:first-child td { border-top:none; }
+.all-finder-layer .finder-body .finder-tbl th { padding: 5px 0; background: #f4f4f4; text-align: left; vertical-align:top; }
+.all-finder-layer .finder-body .finder-tbl th .txt-l { position:relative; height:34px; line-height:34px; padding: 0 20px; margin:3px 0; }
+.all-finder-layer .finder-body .finder-tbl th .txt-l .fa { position:absolute; top:50%; right:15px; margin-top:-6px; }
+.all-finder-layer .finder-body .finder-tbl td { padding: 5px 10px; }
+.all-finder-layer .finder-body .txt-input { height: 21px; line-height: 21px; padding: 0 5px; font-size: 13px; font-family:'Malgun Gothic'; }
+.all-finder-layer .finder-body .finder-category { height:40px; overflow:hidden; }
+.all-finder-layer .finder-body .finder-category.open { height:100%; overflow:visible; }
+.all-finder-layer .finder-body .finder-color { padding-left:10px; }
+.all-finder-layer .finder-body .finder-price .finder-price-input { display: inline-block; padding-top:5px}
+.all-finder-layer .finder-body .finder-price .finder-price-input label { display: inline-block; width: 110px; padding: 0 10px; border: 1px solid #ccc; border-radius:3px; color: #666; }
+.all-finder-layer .finder-body .finder-price .finder-price-input label .txt-input { display: inline-block; width: 90px; height: 29px; line-height: 29px; padding: 0; border: none; background: none; color: #333; text-align: right; }
+.all-finder-layer .finder-body .finder-search { position:relative; padding-left:5px; }
+.all-finder-layer .finder-body .finder-search label { display: inline-block; width: 320px; padding: 0 10px; border: 1px solid #ccc; border-radius:3px; }
+.all-finder-layer .finder-body .finder-search label .txt-input { display: block; width:100%; height: 29px; line-height: 29px; padding: 0; border: none; background: none; color: #333; text-align: left; }
+.all-finder-layer .finder-body .finder-btn-c { padding: 30px 0; text-align: center; }
+.all-finder-layer .finder-body .finder-btn-c a.reset { display: inline-block; width: 140px; height: 60px; line-height: 57px; border:none; border-radius:3px; background: #999; color: #fff; font-size: 18px; font-weight: bold; letter-spacing: 1px; font-family:'Malgun Gothic'; margin-right:15px; }
+.all-finder-layer .finder-body .finder-btn-c button { display: inline-block; width: 140px; height: 60px; line-height: 57px; border:none; border-radius:3px; background: #000; color: #fff; font-size: 18px; font-weight: bold; letter-spacing: 1px; font-family:'Malgun Gothic'; cursor:pointer; }
+
+.all-finder-layer .finder-body .finder-options { display:inline-block; margin:3px 5px 3px 0; padding: 5px 10px; cursor:pointer; line-height:22px; border: 1px solid #fff; vertical-align:top; word-break:break-all; }
+.all-finder-layer .finder-body .finder-options.on { font-weight: bold; border: 1px solid #000; border-radius: 20px; box-shadow:2px 2px 3px #d2d2d2; }
+.all-finder-layer .finder-body .finder-option-color em { display: inline-block; width: 22px; height: 22px; border-radius:20px; font-size:0; vertical-align:top; }
+.all-finder-layer .finder-body .finder-option-color.color-picker { width:22px; height:22px; padding: 0; border: none; } 
+.all-finder-layer .finder-body .finder-option-color.color-picker.on { border: none; }
+.all-finder-layer .finder-body .finder-option-color.color-picker .fa-check { display:none; width:22px; height:22px; margin-top:-17px; color:#fff; text-align:center; }
+.all-finder-layer .finder-body .finder-option-color.color-picker.on .fa-check { display:block; }
+.all-finder-layer .finder-body .finder-option-color.color-picker.on.finder-option-color-white .fa-check { color:#000; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-black em { background-color: #000; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-white em { background-color: #FFF; width: 20px; height: 20px; border: 1px solid #e5e5e5; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-gray em { background-color: #808080; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-beige em { background-color: #e5d0b2; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-brown em { background-color: #aa6810; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-navy em { background-color: #425583; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-blue em { background-color: #0000ff; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-light-blue em { background-color: #62acff; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-red em { background-color: #ff0000; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-orange em { background-color: #ffa500; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-yellow em { background-color: #ffff00; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-pink em { background-color: #ffc0cb; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-purple em { background-color: #800080; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-jaju em { background-color: #a63f7f; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-khaki em { background-color: #2f5e2f; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-green em { background-color: #008000; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-light-green em { background-color: #72dd95; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-silver em { background-color: #dfdfdf; }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-gold em { background-color: #cfbc4e;  }
+.all-finder-layer .finder-body .finder-option-color.finder-option-color-apricot em { background-color: #fbceb1;  }
+
+.all-finder-layer .finder-body .search-auto-complete-list { display:none; z-index:1; position:absolute; top:30px; left:5px; border:1px solid #ddd; line-height:14px; background:#fff; }
+.all-finder-layer .finder-body .search-auto-complete-list ul { width:340px; padding:4px 0 6px; border-bottom:1px solid #ddd; }
+.all-finder-layer .finder-body .search-auto-complete-list ul li { text-align:left; }
+.all-finder-layer .finder-body .search-auto-complete-list ul li.on { background:#f3f3f3; }
+.all-finder-layer .finder-body .search-auto-complete-list ul li a{ display:block; padding:8px 14px 7px; color:#000; background:none; font-family:'dotum'; font-size:12px; letter-spacing:-1px; }
+.all-finder-layer .finder-body .search-auto-complete-list ul li a strong { color:#ab3e41; }
+.all-finder-layer .finder-body .search-auto-complete-list ul li a:hover { background:#f2f2f2; }
+.all-finder-layer .finder-body .search-auto-complete-list ul li a:hover span { border-bottom:1px solid #000; }
+.all-finder-layer .finder-body .search-auto-complete-list .search-list-close { display:block; padding:10px 11px; text-align:right; color:#999; font-size:11px; }
+
+.all-finder-layer .finder-body .finder-search-data .finder-options { border: 1px solid #e5e5e5; box-shadow:none; }
+.all-finder-layer .finder-body .finder-search-data .finder-options .fa-close { margin-left:10px; color: #999; }
+/* BASIC css end */
+

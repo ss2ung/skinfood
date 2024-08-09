@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스킨푸드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            tab();
+        })
+
+        function tab() {
+            //탭메뉴 실행 함수
+            function activateTab(tabId) {
+                //초기화
+                $(".tab-wrap .tit-list > li").removeClass("active");
+                $(".tab-wrap .tab-list").hide();
+
+                //실행
+                $(`.tab-wrap .tit-list > li a[href*="${tabId}"]`).parent().addClass("active");
+                $(tabId).show();
+            }
+
+            //탭메뉴 클릭할 때 실행
+            $(".tab-wrap .tit-list > li a").on("click", function (e) {
+                e.preventDefault();
+                let tabId = $(this).attr("href");
+                activateTab(tabId, true);
+            });
+
+            //페이지 로드 했을 때 탭메뉴 선택
+            let firstTabId = $('.tab-wrap .tit-list > li:first-child a').attr('href');
+            activateTab(firstTabId);
+            slider(); //슬라이드 실행
+        }
+
+        function slider() {
+            $(".slider").each(function (index) {
+                let $this = $(this);
+                let swiper = undefined;
+                let slideNum = $this.find('.swiper-slide').length //슬라이드 총 개수
+                let slideInx = 0; //현재 슬라이드 index
+
+                //디바이스 체크
+                let oldWChk = window.innerWidth > 768 ? 'pc' : 'mo';
+                sliderAct();
+                $(window).on('resize', function () {
+                    let newWChk = window.innerWidth > 768 ? 'pc' : 'mo';
+                    if (newWChk != oldWChk) {
+                        oldWChk = newWChk;
+                        sliderAct();
+                    }
+                })
+
+                function sliderAct() {
+                    //슬라이드 인덱스 클래스 추가
+                    $this.addClass(`slider${index}`);
+
+                    //슬라이드 초기화 
+                    if (swiper != undefined) {
+                        swiper.destroy();
+                        swiper = undefined;
+                    }
+
+                    //slidesPerView 옵션 설정
+                    let viewNum = oldWChk == 'pc' ? 4 : 2;
+                    //loop 옵션 체크
+                    let loopChk = slideNum > viewNum;
+
+                    swiper = new Swiper(`.slider${index} .tab-inner`, {
+                        slidesPerView: viewNum,
+                        initialSlide: slideInx,
+                        spaceBetween: 10,
+                        slidesPerGroup: 1,
+                        observer: true,
+                        observeParents: true,
+                        loop: loopChk,
+                        navigation: {
+                            prevEl: $(`.slider${index} .btn_prev`)[0],
+                            nextEl: $(`.slider${index} .btn_next`)[0],
+                        },
+                        on: {
+                            activeIndexChange: function () {
+                                if ($(`.slider${index}`).parent('.tab-list').css('display') != 'none') {
+                                    slideInx = this.realIndex; //현재 슬라이드 index 갱신
+                                }
+                            }
+                        },
+                    });
+                }
+            });
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="header" id="header">
+            <div class="inner">
+                <div class="menu-wrap">
+                    <h1 class="logo">
+                        <a href="#"><img src="img/logo.png" alt="스킨푸드"></a>
+                    </h1><!-- logo end -->
+                    <nav class="pc pc-nav">
+                        <ul class="gnb">
+                            <li>
+                                <a href="#" class="gnb-item">Product</a>
+                                <ul class="subcont">
+                                    <li><a href="#">베스트&신상품</a></li>
+
+                                    <li>
+                                        <a href="#">유형별</a>
+                                        <ul class="sub-list">
+                                            <li>
+                                                <a href="#">스킨케어</a>
+                                                <ul>
+                                                    <li><a href="#">에센스/세럼/앰플</a></li>
+                                                    <li><a href="#">로션</a></li>
+                                                    <li><a href="#">스킨/토너/미스트</a></li>
+                                                    <li><a href="#">립/아이케어</a></li>
+                                                    <li><a href="#">오일/마사지</a></li>
+                                                    <li><a href="#">클렌징</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">선케어</a>
+                                                <ul>
+                                                    <li><a href="#">선케어</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">헤어/바디</a>
+                                                <ul>
+                                                    <li><a href="#">바디케어</a></li>
+                                                    <li><a href="#">헤어케어</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">남성</a>
+                                                <ul>
+                                                    <li><a href="#">스킨케어</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">마스크</a>
+                                                <ul>
+                                                    <li><a href="#">시트 마스크 팩</a></li>
+                                                    <li><a href="#">모델링 팩</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">메이크업</a>
+                                                <ul>
+                                                    <li><a href="#">베이스메이크업</a></li>
+                                                    <li><a href="#">아이메이크업</a></li>
+                                                    <li><a href="#">립메이크업</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">미용소품</a>
+                                                <ul>
+                                                    <li><a href="#">미용소품</a></li>
+                                                </ul>
+                                            </li>
+
+                                        </ul><!-- sub-list end -->
+                                    </li>
+                                    <li>
+                                        <a href="#">고민별</a>
+                                        <ul class="sub-list">
+
+                                            <li>
+                                                <a href="#">브라이트닝</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">모공</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">트러블</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">보습</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">수분</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">수분</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">진정</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">안티에이징</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">각질</a>
+                                            </li>
+
+                                        </ul><!-- sub-list end -->
+                                    </li>
+                                    <li>
+                                        <a href="#">타입별</a>
+                                        <ul class="sub-list">
+
+                                            <li>
+                                                <a href="#">모든피부</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">건성</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">복합성</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">지성</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">민감성</a>
+                                            </li>
+
+                                        </ul><!-- sub-list end -->
+                                    </li>
+
+
+                                    <li>
+                                        <a href="#">패키지</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">비건</a>
+                                    </li>
+                                </ul><!-- subcont end -->
+                            </li>
+                            <li>
+                                <a href="#" class="gnb-item">Brand</a>
+                            </li>
+                            <li>
+                                <a href="#" class="gnb-item">Event</a>
+                            </li>
+                            <li>
+                                <a href="#" class="gnb-item">Review</a>
+                            </li>
+                            <li>
+                                <a href="#" class="gnb-item">Community</a>
+                            </li>
+                        </ul><!-- gnb -->
+                    </nav>
+                </div>
+
+                <div class="icon">
+                    <div class="search">
+                        <img src="img/icon/search.svg" alt="검색하기">
+                    </div>
+                    <div class="ueser">
+                        <a href="#">
+                            <img src="img/icon/user-icon-1.svg" alt="내정보">
+                        </a>
+                    </div>
+                    <button class="moblie-menu">
+                        <img src="img/icon/menu.svg" alt="메뉴">
+                    </button>
+                </div><!-- icon end -->
+
+                <nav class="moblie moblie-nav">
+                    <button class="close">
+                        <img src="img/icon/close.svg" alt="닫기">
+                    </button>
+                    <ul class="gnb">
+                        <li>
+                            <a href="#" class="gnb-item">Product</a>
+                            <ul class="subcont">
+                                <li><a href="#">베스트&신상품</a></li>
+
+                                <li>
+                                    <a href="#">유형별</a>
+                                    <ul class="sub-list">
+                                        <li>
+                                            <a href="#">스킨케어</a>
+                                            <ul>
+                                                <li><a href="#">에센스/세럼/앰플</a></li>
+                                                <li><a href="#">로션</a></li>
+                                                <li><a href="#">스킨/토너/미스트</a></li>
+                                                <li><a href="#">립/아이케어</a></li>
+                                                <li><a href="#">오일/마사지</a></li>
+                                                <li><a href="#">클렌징</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">선케어</a>
+                                            <ul>
+                                                <li><a href="#">선케어</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">헤어/바디</a>
+                                            <ul>
+                                                <li><a href="#">바디케어</a></li>
+                                                <li><a href="#">헤어케어</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">남성</a>
+                                            <ul>
+                                                <li><a href="#">스킨케어</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">마스크</a>
+                                            <ul>
+                                                <li><a href="#">시트 마스크 팩</a></li>
+                                                <li><a href="#">모델링 팩</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">메이크업</a>
+                                            <ul>
+                                                <li><a href="#">베이스메이크업</a></li>
+                                                <li><a href="#">아이메이크업</a></li>
+                                                <li><a href="#">립메이크업</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">미용소품</a>
+                                            <ul>
+                                                <li><a href="#">미용소품</a></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul><!-- sub-list end -->
+                                </li>
+                                <li>
+                                    <a href="#">고민별</a>
+                                    <ul class="sub-list">
+
+                                        <li>
+                                            <a href="#">브라이트닝</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">모공</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">트러블</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">보습</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">수분</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">수분</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">진정</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">안티에이징</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">각질</a>
+                                        </li>
+
+                                    </ul><!-- sub-list end -->
+                                </li>
+                                <li>
+                                    <a href="#">타입별</a>
+                                    <ul class="sub-list">
+
+                                        <li>
+                                            <a href="#">모든피부</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">건성</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">복합성</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">지성</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">민감성</a>
+                                        </li>
+
+                                    </ul><!-- sub-list end -->
+                                </li>
+
+                                <li>
+                                    <a href="#">라인별</a>
+                                    <ul class="sub-list">
+
+                                        <li>
+                                            <a href="#">감자</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">골드캐비어</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">나주배</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">당근</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">도토리</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">라이스</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">레몬버베나</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">무화과</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">미나리</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">민트스파</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">밀크쉐이크</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">버터리</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">베리</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">베지가든</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">블루캐모마일</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">블랙체리</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">블랙슈가</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">샤인머스켓</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">수비드</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">시어버터</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">아르간오일</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">아보카도</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">약초방</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">에그화이트</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">연어</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">유자</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">착한라인</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">초코</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">토마토</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">티테라피</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">파인애플</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">포도씨오일</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">프로폴리스</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">피치뽀송</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">핑크자몽</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">허니</a>
+                                        </li>
+
+                                    </ul><!-- sub-list end -->
+                                </li>
+
+                                <li>
+                                    <a href="#">패키지</a>
+                                </li>
+
+                                <li>
+                                    <a href="#">비건</a>
+                                </li>
+                            </ul><!-- subcont end -->
+                        </li>
+
+                        <li>
+                            <a href="#" class="gnb-item">Brand</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="gnb-item">Event</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="gnb-item">Review</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="gnb-item">Community</a>
+                        </li>
+                    </ul><!-- gnb -->
+                </nav><!-- moblie-nav -->
+
+
+
+
+            </div><!-- inner end  -->
+        </header><!-- header end -->
+
+        <main class="main">
+            <div class="main-visaul">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="img/main/메인비주얼 감자팩.png" alt="포테이토 마데카소사이드 수딩 패드">
+                            </figure>
+                            <div class="txt">
+                                <h2>피부 흔적 감쪽같이 쓱싹<br>뽀얀 속살 피부 리셋 패드</h2>
+                                <p>포테이토 마데카소사이드 수딩 패드</p>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="img/main/메인-미나리.png" alt="판토테닉 워터 파슬리라인">
+                            </figure>
+                            <div class="txt">
+                                <h2>미나리로<br> 나의 피부 고민리턴</h2>
+                                <p>예민한 피부 긴급 진정<br>판토테닉 워터 파슬리 라인</p>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="img/main/메인-청포도.png" alt="진정 솔루션 샤인머스캣라인">
+                            </figure>
+                            <div class="txt">
+                                <h2>샤인머스캣의<br> 청량한 수분을 담은</h2>
+                                <p>진정 솔루션 샤인머스캣 라인</p>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="img/main/메인_선크림.png" alt="저자극 밀착 선크림">
+                            </figure>
+                            <div class="txt">
+                                <h2>내 피부 타입에 맞게<br>저작극 밀착 선크림</h2>
+                                <p>#수분 #진정 #생기 베리선크림 3종</p>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="img/main/메인-당근후원.png" alt="스킨푸드&초록우산의 동행">
+                            </figure>
+                            <div class="txt">
+                                <h2>당당한 모습으로<br>근사한 내일을 맞도록</h2>
+                                <p>스킨푸드&초록우산의 동행</p>
+                            </div>
+                            <div class="txt">
+                                <h2></h2>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div><!-- swiper-wrapper end -->
+
+                    <div class="swiper-pagination"></div>
+                </div><!-- swiper mySwiper end -->
+
+            </div><!-- main-visaul end -->
+
+            <section class="event">
+                <div class="inner">
+                    <h3>Event</h3>
+                    <div class="e-list">
+                        <div class="box">
+                            <figure>
+                                <img src="img/main/main_rolling1_304.jpg" alt="월간 매거진 7월 여름에 쓰기 좋은 제품 모음집">
+
+                            </figure>
+                            <div class="txt-wrap">
+                                <div class="b-txt">
+                                    <p>7.22(월) 오전 10시 - 7.31(수) 오전 10시</p>
+                                    <h5>월간 매거진 7월_<br>여름에 쓰기 좋은 제품 모음ZIP📁</h5>
+                                </div><!-- b-txt end -->
+                                <button>
+                                    <img src="img/icon/검-더하기.svg" alt="더보기">
+                                </button>
+                            </div><!-- txt-wrap -->
+                        </div><!-- box end -->
+
+                        <div class="box">
+                            <figure>
+                                <img src="img/main/main_rolling1_300.jpg" alt="SKINFOOD SUMMER FESTIVAL">
+
+                            </figure>
+                            <div class="txt-wrap">
+                                <div class="b-txt">
+                                    <p>7.22(월) 오전 10시 - 7.31(수) 오전 10시</p>
+                                    <h5>SKINFOOD SUMMER<br>FESTIVAL💥</h5>
+                                </div><!-- b-txt end -->
+                                <button>
+                                    <img src="img/icon/검-더하기.svg" alt="더보기">
+                                </button>
+                            </div><!-- txt-wrap -->
+                        </div><!-- box end -->
+                    </div> <!-- e-list end -->
+                </div><!-- inner end -->
+            </section><!-- event end -->
+
+            <section class="line">
+                <div class="inner">
+                    <div class="list">
+                        <div class="line-slide">
+                            <div class="swiper lineSwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="big-box">
+                                            <figure>
+                                                <img src="img/미나리라인-슬라이더배너.jpg" alt="트러블 피부 진정은 산뜻 워터리한 미나리 엠플">
+                                            </figure>
+                                            <div class="item">
+                                                <figure>
+                                                    <img src="img/미나리앰플-로고없.png" alt="미나리 앰플">
+                                                </figure>
+                                            </div>
+                                            <div class="txt-box">
+                                                <span>트러블 피부 진정은<br>산뜻 워터리한</span>
+                                                <h4>미나리 앰플</h4>
+                                            </div><!-- txt-box end -->
+                                        </div><!-- big-box end -->
+                                        <div class="small-list">
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/미나리-판토테닉워터파슬리앰플.jpg" alt="판토테닉 워터 파슬리 앰플">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[미나리앰플]<br>판토테닉 워터 파슬리 앰플</p>
+                                                    <div>
+                                                        <span>￦27,000</span>
+                                                        <strong>￦17,550</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/미나리-판토테닉워터파슬리사일런스에센스.jpg" alt="판토테닉 워터 파슬리 사일런스 에센스">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[미나리에센스]<br>판토테닉 워터 파슬리 사일런스 에센스</p>
+                                                    <div>
+                                                        <strong>￦32,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/미나리-판토테닉워터파슬리리프레쉬클렌징폼.jpg"
+                                                        alt="판토테닉 워터 파슬리 리프레쉬 클렌징폼">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>판토테닉 워터 파슬리<br>리프레쉬 클렌징폼</p>
+                                                    <div>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/미나리-판토테닉워터파슬리마스크.jpg" alt="판토테닉 워터 파슬리 마스크">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>판토테닉 워터<br>파슬리 마스크</p>
+                                                    <div>
+                                                        <strong>￦3,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+                                        </div><!-- small-list end -->
+                                    </div><!-- swiper-slide end -->
+
+                                    <div class="swiper-slide">
+                                        <div class="big-box">
+                                            <figure>
+                                                <img src="img/샤인머스캣라인.jpg" alt="트러블 지성 피부케어엔 샤인시카 라인으로 매끈하게">
+                                            </figure>
+                                            <div class="item">
+                                                <figure>
+                                                    <img src="img/샤인머스캣-바하토너.png" alt="바하토너">
+                                                </figure>
+                                            </div>
+                                            <div class="txt-box">
+                                                <span>트러블 지성 피부케어엔<br>샤인시카 라인으로 <br>매끈하게</span>
+                                            </div><!-- txt-box end -->
+                                        </div><!-- big-box end -->
+                                        <div class="small-list">
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/샤인머스캣-시카바하토너패드.jpg" alt="시카 바하 토너 패드">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[각질패드]<br>샤인머스캣 시카 바하 토너패드</p>
+                                                    <div>
+                                                        <strong>￦26,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/샤인머스캣-시카바하푸드마스크.jpg" alt="시카 바하 푸드마스크">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[매끈진정]<br>샤인머스캣 시카 바하 푸드 마스크</p>
+                                                    <div>
+                                                        <strong>￦15,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/마스크팩-샤인머스캣.jpg" alt="샤인머스캣 시카 데일리 마스크(30매)">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[결케어]<br>샤인머스캣 시카 데일리 마스크(30매)</p>
+                                                    <div>
+                                                        <strong>￦26,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/샤인머스캣-바하토너.png" alt="샤인머스캣 바하 토너 200ml">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[BHA0.2%]<br>샤인머스캣 바하 토너</p>
+                                                    <div>
+                                                        <strong>￦15,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+                                        </div><!-- small-list end -->
+                                    </div><!-- swiper-slide end -->
+
+                                    <div class="swiper-slide">
+                                        <div class="big-box">
+                                            <figure>
+                                                <img src="img/마스크팩라인.jpg" alt="뽑아 쓰는 마스크팩 3종">
+                                            </figure>
+                                            <div class="item">
+                                                <figure>
+                                                    <img src="img/당근마스크.png" alt="당근마스크">
+                                                </figure>
+                                            </div><!-- item end -->
+                                            <div class="txt-box">
+                                                <span>퀵하게 매일 5분 케어<br>뽑아 쓰는 <br>마스크팩 4종</span>
+                                            </div><!-- txt-box end -->
+                                        </div><!-- big-box end -->
+                                        <div class="small-list">
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/마스크팩-캐록카로틴데일리마스크.jpg" alt="캐롯 카로틴 데일리 마스크 30매">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[수분진정]캐롯<br> 카로틴 데일리 마스크 (30매)</p>
+                                                    <div>
+                                                        <strong>￦26,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/마스크-유자씨비타데일리마스크.jpg" alt="유자씨 비타 데일리 마스크(30매)">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[비타미백]유자씨<br> 비타 데일리 마스크(30매)</p>
+                                                    <div>
+                                                        <strong>￦26,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/마스크-도토리.jpg" alt="에이콘 포어 펩타이드 데일리 마스크(30매)">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[모공탄력]에이콘<br> 포어 펩타이드 데일리 마스크(30매)</p>
+                                                    <div>
+                                                        <strong>￦26,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/마스크팩-샤인머스캣.jpg" alt="샤인머스캣 시카 데일리 마스크(30매)">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[결케어]샤인머스캣<br> 시카 데일리 마스크(30매)</p>
+                                                    <div>
+                                                        <strong>￦26,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+                                        </div><!-- small-list end -->
+                                    </div><!-- swiper-slide end -->
+
+                                    <div class="swiper-slide">
+                                        <div class="big-box">
+                                            <figure>
+                                                <img src="img/블랙체리라인.jpg" alt="순수 블랙체리로 저자극 주름 케어">
+                                            </figure>
+                                            <div class="item">
+                                                <figure>
+                                                    <img src="img/블랙체리-레티놀데일리크림.jpg" alt="블랙체리 레티놀 크림">
+                                                </figure>
+                                            </div><!-- item end -->
+                                            <div class="txt-box">
+                                                <span>순수 블랙체리로<br>저자극 주름 케어<br>블랙체리 레티놀 크림</span>
+
+                                            </div><!-- txt-box end -->
+                                        </div><!-- big-box end -->
+                                        <div class="small-list">
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/블랙체리-레티놀데일리크림.jpg" alt="블랙체리 레티놀 데일리 크림">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[탄력개선]<br>블랙체리 레티놀 데일리 크림</p>
+                                                    <div>
+                                                        <strong>￦32,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/블랙체리-블랙체리레티놀0.1아이크림.jpg" alt="블랙체리 레티놀 0.1 아이크림">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[주름집중케어]<br>블랙체리 레티놀 0.1 아이크림</p>
+                                                    <div>
+                                                        <strong>￦33,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/블랙체리-블랙체리레티놀0.1아이크림.jpg" alt="블랙체리 레티놀 0.1 아이크림">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[주름집중케어]<br>블랙체리 레티놀 0.1 아이크림</p>
+                                                    <div>
+                                                        <strong>￦33,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+                                            <div class="small-box">
+                                                <figure>
+                                                    <img src="img/블랙체리-블랙체리레티놀0.1아이크림.jpg" alt="블랙체리 레티놀 0.1 아이크림">
+                                                </figure>
+                                                <div class="s-txt">
+                                                    <p>[주름집중케어]<br>블랙체리 레티놀 0.1 아이크림</p>
+                                                    <div>
+                                                        <strong>￦33,000</strong>
+                                                    </div>
+                                                </div><!-- s-txt end -->
+                                            </div><!-- small-box -->
+
+
+                                        </div><!-- small-list end -->
+                                    </div><!-- swiper-slide end -->
+
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <!-- 정지재생버튼 추가 -->
+                                <div class="swiper-play">
+                                    <div class="swiper-stop"></div>
+                                    <div class="swiper-start"></div>
+                                </div><!-- .swiper-play end -->
+                            </div>
+                        </div><!-- line-slide -->
+                    </div><!-- list end -->
+                </div><!-- inner end -->
+            </section><!-- line end -->
+
+            <section class="best">
+                <div class="inner">
+                    <div class="tit">
+                        <h3>BEST<br>Product</h3>
+                        <p>스킨푸드의 베스트 상품을<br> 카테고리별로 만나보세요</p>
+                        <a href="#">더보기<img src="img/icon/arrow_key_right.svg" alt="더보기"></a>
+                    </div>
+
+                    <div class="tab-wrap">
+                        <ul class="tit-list">
+                            <li class="active"><a href="#con01">전체</a></li>
+                            <li><a href="#con02">스킨케어</a></li>
+                            <li><a href="#con03">선케어</a></li>
+                            <li><a href="#con04">메이크업</a></li>
+                            <li><a href="#con05">남성</a></li>
+                            <li><a href="#con06">헤어/바디/마스크</a></li>
+                            <li><a href="#con07">미용소품</a></li>
+                        </ul><!-- tit-list end -->
+
+                        <div class="tab-cont">
+                            <div id="con01" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/포테이토마데소사이드수딩패드.jpg" alt="포테이토 마데소사이드 수딩 패드">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[리필 30매증정] 포테이토<br>
+                                                        마데소사이드 수딩패드</p>
+                                                    <div>
+                                                        <span>￦26,000</span>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/미나리-판토테닉워터파슬리리프레쉬클렌징폼.jpg"
+                                                            alt="판토테닉워터파슬리리프레쉬클렌징폼">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[깔끔개운] 판토테닉 워터<br>
+                                                        파슬리 리프레쉬 클렌징폼</p>
+                                                    <div>
+                                                        <span>￦26,000</span>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/베리수분선크림.jpg" alt="베리수분선크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>베리 수분 선크림 SPF50+ PA++++
+                                                        (50ml)</p>
+                                                    <div>
+                                                        <span>￦24,000</span>
+                                                        <strong>￦16,080</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/초코아이브로우파우더케익.jpg" alt="초코 아이브로우 파우더 케익">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>초코 아이브로우 파우더케익 2.6g
+                                                        (1.3g*2)</p>
+                                                    <div>
+                                                        <strong>￦9,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/캐롯카로틴카밍워터패드.jpg" alt="캐롯카로틴카밍워터패드">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[수분진정]캐롯 카로틴<br>카밍 워터 패드</p>
+                                                    <div>
+                                                        <span>￦26,000</span>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con01 tab-list end -->
+                            <div id="con02" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/캐롯카로틴카밍워터패드.jpg" alt="캐롯카로틴카밍워터패드">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[수분진정]캐롯 카로틴<br>카밍 워터 패드</p>
+                                                    <div>
+                                                        <span>￦26,000</span>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/포테이토마데소사이드수딩패드.jpg" alt="포테이토 마데소사이드 수딩 패드">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[리필 30매증정] 포테이토<br>
+                                                        마데소사이드 수딩패드</p>
+                                                    <div>
+                                                        <span>￦26,000</span>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/블루캐모마일히알루로닉크림.jpg" alt="블루 캐모마일 히알루로닉 크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[물떡크림] 블루 캐모마일<br>
+                                                        히알루로닉 크림(70ml)</p>
+                                                    <div>
+                                                        <span>￦25,000</span>
+                                                        <strong>￦15,080</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/유자씨잡티맑음토너.jpg" alt="유자씨 잡티 맑음 토너">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[잡티케어]유자 씨 잡티
+                                                        맑음 토너(200ml)</p>
+                                                    <div>
+                                                        <strong>￦24,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/유자씨잡티맑음세럼.jpg" alt="유자씨 잡티 맑음 세럼">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[잡티세럼]유자 씨 잡티 맑음 세럼(50ml)</p>
+                                                    <div>
+                                                        <strong>￦27,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/AHA2%핑크자몽아하토너.jpg" alt="AHA2%핑크자몽아하토너">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[AHA2%]핑크 자몽 아하 토너(50ml)</p>
+                                                    <div>
+                                                        <strong>￦15,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con02 tab-list end -->
+                            <div id="con03" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/베리수분선크림.jpg" alt="베리수분선크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>베리 수분 선크림 SPF50+ PA++++
+                                                        (50ml)</p>
+                                                    <div>
+                                                        <span>￦24,000</span>
+                                                        <strong>￦16,080</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/베리생기선크림.jpg" alt="베리 생기 선크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>베리 생기 선크림 SPF50+ PA++++
+                                                        (50ml)</p>
+                                                    <div>
+                                                        <span>￦24,000</span>
+                                                        <strong>￦16,080</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/베리진정선크림.png" alt="베리진정선크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>베리 진정 선크림 SPF50+ PA++++
+                                                        (50ml)</p>
+                                                    <div>
+                                                        <span>￦24,000</span>
+                                                        <strong>￦16,080</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/토마토톤업선크림.jpg" alt="토마토 톤 업 선크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>토마토 톤 업 선크림(50ml)
+                                                        (50ml)</p>
+                                                    <div>
+                                                        <strong>￦15,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/유자씨톤업크림.png" alt="유자 씨 톤업 크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>유자 씨 톤업 크림 SPF50+ PA++++(50ml)</p>
+                                                    <div>
+                                                        <strong>￦24,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con03 tab-list end -->
+                            <div id="con04" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/연어다크서클컨실러크림.jpg" alt="연어 다크서클 컨실러 크림">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>연어 다크서클 컨실러 크림(10g)</p>
+                                                    <div>
+                                                        <strong>￦8,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/피치뽀송멀티피니시파우더(소용량).jpg" alt="피치 뽀송 멀티 피니시 파우더">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>피치 뽀송 멀티<br>
+                                                        피니시 파우더 (소용량)</p>
+                                                    <div>
+                                                        <strong>￦7,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/피치뽀송포어블러팩트.jpg" alt="피치뽀송 포어 블러 팩트">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>피치뽀송 포어 블러 팩트(4g)</p>
+                                                    <div>
+                                                        <strong>￦9,080</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/초코아이브로우파우더케익.jpg" alt="초코 아이브로우 파우더 케익">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>초코 아이브로우 파우더케익 2.6g
+                                                        (1.3g*2)</p>
+                                                    <div>
+                                                        <strong>￦9,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/초코아이브로우슬림펜슬.jpg" alt="초코 아이브로우 슬림 펜슬">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>초코 아이브로우 슬림 펜슬(0.13g)</p>
+                                                    <div>
+                                                        <strong>￦8,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/버터리치크케이크트윈1,2호.jpg" alt="버터리치크케이크트윈1,2호">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>버터리 치크 케이크 트윈1,2호(9.5g) [웨지퍼프 4EA 증정]</p>
+                                                    <div>
+                                                        <strong>￦15,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con04 tab-list end -->
+                            <div id="con05" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/블랙슈가퍼펙트토너2x포맨.jpg" alt="블랙슈가 퍼펙트 토너 2x 포맨">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>블랙슈가 퍼펙트 토너 2x 포맨(180ml)</p>
+                                                    <div>
+                                                        <strong>￦20,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/블랙슈가퍼펙트에멀전2x포멘.jpg" alt="블랙슈가 퍼펙트 에멀전 2x 포맨">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>블랙슈가 퍼펙트 에멀전 2x 포맨(180ml)</p>
+                                                    <div>
+                                                        <strong>￦22,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+
+
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con05 tab-list end -->
+                            <div id="con06" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/아르간오일실크플러스헤어에센스.jpg" alt="아르간 오일 실크 플러스 헤어 에센스">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>아르간 오일 실크 플러스 헤어 에센스(110ml)</p>
+                                                    <div>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/인텐시브시어버터크림로션.jpg" alt="인텐시브 시어버터 크림 로션">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>인텐시브 시어버터 크림 로션(450ml)</p>
+                                                    <div>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/시어버터크림워시.jpg" alt="인텐시브 시어버터 크림 워시">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>인텐시브 시어버터 크림 워시(450ml)</p>
+                                                    <div>
+                                                        <strong>￦16,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/캐롯카로틴마스크10매.jpg" alt="캐롯카로틴마스크 10매">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[10매] 캐롯 카로틴 마스크 (당근마스크)</p>
+                                                    <div>
+                                                        <strong>￦30,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/로열허니프로폴리스마스크(10매).jpg" alt="로열허니프로폴리스마스크">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[10매]로열허니 프로폴리스 인리치 마스크</p>
+                                                    <div>
+                                                        <strong>￦30,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/10매에이콘포어펩아이드마스크.jpg" alt="에이콘 포어 펩타이드 마스크">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>[10매]에이콘 포어 펩타이드 마스크</p>
+                                                    <div>
+                                                        <strong>￦30,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con06 tab-list end -->
+                            <div id="con07" class="tab-list">
+                                <div class="slider">
+                                    <div class="tab-inner">
+                                        <ul class="swiper-wrapper slide-list">
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/화이트엠보화장솜.jpg" alt="화이트엠보화장솜">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>화이트 엠보 화장솜</p>
+                                                    <div>
+                                                        <strong>￦2,500</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/워시오프실리콘브러쉬.jpg" alt="워시오프실리콘브러쉬">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>워시 오프 실리콘 브러쉬</p>
+                                                    <div>
+                                                        <strong>￦5,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/소프트아이래쉬컬.jpg" alt="소프트아이래쉬컬">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>소프트 아이래쉬 컬<br>
+                                                        (뷰러 + 리필패킹 2개)</p>
+                                                    <div>
+                                                        <strong>￦4,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/웨지퍼프대용량(12ea).jpg" alt="웨지퍼프대용량">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>웨지퍼프대용량(12ea)</p>
+                                                    <div>
+                                                        <strong>￦5,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+
+                                            <li class="swiper-slide">
+                                                <div class="img">
+                                                    <figure>
+                                                        <img src="img/웨지퍼프(4ea).jpg" alt="웨지퍼프">
+                                                    </figure>
+                                                </div>
+                                                <div class="txt">
+                                                    <p>웨지퍼프(4ea)</p>
+                                                    <div>
+                                                        <strong>￦2,000</strong>
+                                                    </div>
+                                                </div>
+                                            </li><!-- swiper-slide end -->
+                                        </ul>
+                                    </div>
+                                    <span class="btn btn_prev">이전</span>
+                                    <span class="btn btn_next">다음</span>
+                                </div><!-- slider end -->
+                            </div><!-- con07 tab-list end -->
+                        </div><!-- tab-cont end -->
+                    </div><!-- tap-warp end -->
+                </div><!-- inner end -->
+            </section><!-- best end -->
+
+            <section class="review">
+                <div class="inner">
+                    <div class="tit">
+                        <h3>Best Review</h3>
+                    </div><!-- tit end -->
+
+                    <div class="riview-box">
+                        <div class="swiper reviewSwiper">
+                            <div class="swiper-wrapper">
+                                
+                                <div class="swiper-slide">
+                                    <div class="box">
+                                        <figure>
+                                            <img src="img/images_potato_pad_pc.png" alt="포테이토 마데소사이드 수딩패드">
+                                        </figure>
+                                    </div><!-- box end  -->
+                                    <div class="r-txt">
+                                        <figure>
+                                            <img src="img/별.png" alt="리뷰 별 5개">
+                                        </figure>
+                                        <ul>
+                                            <li><h4>붉은 피부 이제 멈춰</h4></li>
+                                            <li>#포테이토 마데카소사이드 패드</li>
+                                            <li>도톰하고 폭신폭신한.. 역시 패드는 스킨푸드! <br> 
+                                                당근 패드처럼 촉촉하고 너무 좋아요! 색소침착에도 효과 좋고<br>
+                                                진정&수분 충전까지 또렷하게 느낄 수 있어서 좋았어요!
+                                            </li>
+                                        </ul>
+
+                                        <button>리뷰 자세히 보기</button>
+                                    </div><!-- r-txt end -->
+                                </div><!-- swiper-slide end -->
+                               
+                                <div class="swiper-slide">
+                                    <div class="box">
+                                        <figure>
+                                            <img src="img/images_berrymoistsun_pc.png" alt="베리 수분 선크림">
+                                        </figure>
+                                    </div><!-- box end  -->
+                                    <div class="r-txt">
+                                        <figure>
+                                            <img src="img/별.png" alt="리뷰 별 5개">
+                                        </figure>
+                                        <ul>
+                                            <li><h4>끈적임 없이 촉촉한 선</h4></li>
+                                            <li>#베리 수분 선크림</li>
+                                            <li>수분이 많이 부족한 피부이고 끈적이는 느낌을 너무 싫어해요<br>
+                                                그런데 새로나온 베리 수분 선크림 정말 좋네요. 딱 제가 원하던<br> 
+                                                선크림입니다. 발림성도 좋고 수분도 지켜주는 듯한 느낌적인 느낌!
+                                            </li>
+                                        </ul>
+
+                                        <button>리뷰 자세히 보기</button>
+                                    </div><!-- r-txt end -->
+                                </div><!-- swiper-slide end -->
+                               
+                                <div class="swiper-slide">
+                                    <div class="box">
+                                        <figure>
+                                            <img src="img/images_strawberry_foodmask_pc.png" alt="딸기슈가 푸드마스크">
+                                        </figure>
+                                    </div><!-- box end  -->
+                                    <div class="r-txt">
+                                        <figure>
+                                            <img src="img/별.png" alt="리뷰 별 5개">
+                                        </figure>
+                                        <ul>
+                                            <li><h4>각질제거 인생템 발견!</h4></li>
+                                            <li>#딸기슈가 푸드마스크</li>
+                                            <li>피부가 예민한 편이라 언제부턴가 스크럽 제품은 아예 구매 안하게<br>
+                                                되더라구요 ㅠㅠ 근데 딸기향에 혹해서 구매해보았습니다!!<br> 
+                                                알갱이가 살아있고 더 쫀득해요. 각질관리용으로 잘 사용해볼게용♥
+                                            </li>
+                                        </ul>
+
+                                        <button><a href="#">리뷰 자세히 보기</a></button>
+                                    </div><!-- r-txt end -->
+                                </div><!-- swiper-slide end -->
+
+                            </div><!-- swiper-wrapper end-->
+
+                            <div class="swiper-pagination"></div>
+                    </div><!-- riview-box end -->
+                </div><!-- inner end -->
+            </section><!-- review end -->
+
+            <section class="insta">
+                <div class="inner">
+                    <div class="tit">
+                        <h3>Instagram</h3>
+                        <a href="#">@SKINFOOD_OFFICIAL</a>
+                    </div><!-- tit end -->
+
+                </div><!-- inner end -->
+            </section><!-- insta end -->
+
+        </main><!-- main end -->
+
+    </div><!-- wrap end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                type: "progressbar",
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            }
+
+
+        });
+
+        /* line */
+
+        var swiper = new Swiper(".lineSwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            effect: "fade",
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            autoplay: {
+                delay: 4500
+            }
+        });
+
+       /* review */
+        var swiper = new Swiper(".reviewSwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            effect: "fade",
+            loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + (index + 1) + "</span>";
+        },
+      },
+    });
+    </script>
+</body>
+
+</html>

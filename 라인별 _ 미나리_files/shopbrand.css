@@ -1,0 +1,28 @@
+/* BASIC css start */
+.icon_solo_discount{
+    background: hsl(8deg 80% 61%);
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 15px;
+    margin-bottom: 5px;}
+    
+.goodsDisplayTextWrap .consumer_wrap{
+    margin-bottom: 0 !important;
+    margin-top: 3px !important;}    
+    /* class-list */
+#productClass .cate-wrap { overflow:hidden }
+#productClass .cate-wrap .bcate { padding-bottom:10px; font-size:18px; color:#202020; font-weight:bold; border-bottom:1px solid #e3e3e3 }
+#productClass .cate-wrap .class-list ul { border-bottom:1px solid #e3e3e3;  *zoom:1 }
+#productClass .cate-wrap .class-list ul:after { display:block; clear:both; content:'' }
+#productClass .cate-wrap .class-list ul li { padding:15px 30px 16px 0; float:left }
+#productClass .cate-wrap .class-list ul li a { display:block; font-size:13px; color:#919191 }
+
+/* best-item */
+#productClass .best-item { padding-top: 20px; padding-bottom: 10px; border-top: 2px solid #5c5c5c; border-bottom: 2px solid #5c5c5c; background-color: #f8f8f8; }
+
+/* total-sort */
+#productClass .total-sort { padding-top: 30px; }
+
+.goodsDisplayImageIcon .goodsDisplayImageIconWrap span.icon_solo_discount{width:100% !important; text-align: center !important;}
+/* BASIC css end */
+

@@ -1,0 +1,40 @@
+jQuery(document).ready(function () {
+  
+  //팝업 미리보기 호출
+    jQuery(".sub-slide__item-image-icon-button").click(function(){
+        jQuery("#dim").removeClass("hide");
+        jQuery("body").addClass("lock");
+    });
+
+   
+    
+    jQuery(".sub-slide__item-image-icon-button").click(function(){
+        jQuery("#dim").removeClass("hide");
+        jQuery("body").addClass("lock");
+    });
+
+
+    //팝업 미리보기 해제         
+    jQuery(document).on("click", "#detailpage .close-layer", function () {
+        jQuery("#dim").addClass("hide");
+        jQuery("body").removeClass("lock");
+      });
+  
+  
+
+    jQuery(document).on("click", "#basketpage #bottombutton input", function () {
+        jQuery("#dim").addClass("hide");
+        jQuery("body").removeClass("lock");
+      });
+  
+  
+   
+    jQuery(document).on("click", "#basketpage #popupclose a", function () {
+        jQuery("#dim").addClass("hide");
+        jQuery("body").removeClass("lock");
+      });
+  
+
+
+    
+});

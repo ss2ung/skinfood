@@ -1,0 +1,447 @@
+(function () {
+    var commonMain = (function () {
+        var defparams = {
+            gnbItem: '.gnb__item',
+            gnb2Depth: '.gnb-2depth',
+            gnb2DepthItem: '.gnb-2depth__item',
+            gnb2DepthItemAnchor: '.gnb-2depth__item a',
+            gnb3DepthList: '.gnb-3depth__list',
+            subCategory: '.gnb__sub-category-wrap',
+            gnbImgWrap: '.gnb__sub-category-img-wrap',
+            moved3depthWrap: '.gnb__sub-category--3depth-wrap',
+            gnb: {
+                class: {
+                    gnb2DepthActive: 'gnb-2depth--active',
+                    gnb2DepthItemActive: '.gnb-2depth__item--active',
+                    gnb3DepthActive: 'gnb-3depth__list--active',
+                    subCategoryActive: 'gnb__sub-category-wrap--active',
+                    moved3depthWrapActive: '.gnb__sub-category--3depth-wrap--active',
+                }
+            },
+            searchIcon: '.gnb-icon--search > a',
+            searchBar: {
+                wrap: '.gnb__search',
+                closeButton: '.gnb__search-icon--close',
+                class: {
+                    wrapActive: 'gnb__search--active',
+                }
+            },
+            fixedIcon: {
+                wrap: '.fixed-icon-wrap',
+                class: {
+                    wrapActive: 'fixed-icon-wrap--active',
+                    wrapFix: 'fixed-icon-wrap--fixed',
+                }
+            },
+            recentPopup: {
+                content: '.footer-recent__content',
+                contentEmpty: '.footer-recent__content-empty',
+                listWrap: '.footer-recent__content-list-wrap',
+                list: '.footer-recent__content-list',
+                item: '.footer-recent__content-item',
+                deleteBtn: '.footer-recent__content-item-delete',
+                AllDeleteBtn: '.footer-recent__footer-delete-all',
+                footer: '.footer-recent__footer',
+                class: {
+                    contentInactive: 'footer-recent__content--inactive',
+                    contentEmptyactive: 'footer-recent__content-empty--active',
+                    footerInactive: 'footer-recent__footer--inactive',
+                }
+            },
+            moveTopBtn: '#layout_top_btn',
+            sharePopup: {
+                urlWrap:'.goods_util-share__popup-content-url',
+                urlBox: '.goods_util-share__popup-content-url-text',
+            }
+        }
+        var gnbManager = {
+            init: function () {
+                var _ = this;
+                _.bindEvents();
+            },
+            bindEvents: function () {
+                var _ = this,
+                    $document = $(document);
+                // 1depth event
+                $(defparams.gnbItem).bind("focusin mouseenter", function(){
+                    _.setWidthDepth();
+                    $(defparams.subCategory).addClass(defparams.gnb.class.subCategoryActive);
+                });
+                $("#layout_topBar").bind("mouseleave", function(){
+                    $(defparams.subCategory).removeClass(defparams.gnb.class.subCategoryActive);
+                });
+                $(".gnb__item:last").focusout(function(){
+                    $(defparams.subCategory).removeClass(defparams.gnb.class.subCategoryActive);
+                });
+
+                // 2depth event
+                $(defparams.gnb2DepthItem).bind("focusin mouseenter",function(){
+                    $(defparams.gnb3DepthList).removeClass(defparams.gnb.class.gnb3DepthActive);
+                    $(defparams.moved3depthWrap).addClass(defparams.gnb.class.moved3depthWrapActive);
+                    $(this).find(defparams.gnb3DepthList).addClass(defparams.gnb.class.gnb3DepthActive);
+                });
+                $(defparams.gnb2DepthItem).bind("mouseleave", function(){
+                    $(defparams.gnb3DepthList).removeClass(defparams.gnb.class.gnb3DepthActive);
+                    $(defparams.moved3depthWrap).removeClass(defparams.gnb.class.moved3depthWrapActive);
+                });
+            },
+            setWidthDepth: function () {
+                $(defparams.gnbItem).each(function (index, item) {
+                    $(defparams.gnb2Depth).eq(index).width($(item).outerWidth() + 'px');
+                });
+            }
+        }
+        var searchManager = {
+            init: function () {
+                var _ = this;
+                _.bindEvents();
+            },
+            bindEvents: function () {
+                var _ = this,
+                    $document = $(document);
+                $document.on('click', defparams.searchIcon, $.proxy(_.openSearchBar, _));
+                $document.on('click', defparams.searchBar.closeButton, $.proxy(_.openSearchBar, _));
+            },
+            openSearchBar: function (e) {
+                var _ = this,
+                    isActive;
+
+                isActive = $(defparams.searchBar.wrap).hasClass(defparams.searchBar.class.wrapActive);
+                if(isActive) {
+                    $(defparams.searchBar.wrap).removeClass(defparams.searchBar.class.wrapActive);
+                } else {
+                    $(defparams.searchBar.wrap).addClass(defparams.searchBar.class.wrapActive);
+                    $(defparams.subCategory).removeClass(defparams.gnb.class.subCategoryActive);
+                }
+            },
+        }
+        var fixedIconManager = {
+            init: function () {
+                var _ = this;
+                _.bindEvents();
+            },
+            bindEvents: function () {
+                var _ = this,
+                    $window = $(window);
+                $window.on('scroll.fixedIcon', _.fixedIconActive);
+                $window.on('resize.fixedIcon', _.setFixedIcon);
+            },
+            displayTimer: false,
+            fixedIconActive: function () {
+                var _ = this,
+                    $window = $(window);
+                var scrollTop = $window.scrollTop();
+                if(scrollTop >= 600) {
+                    clearTimeout(_.displayTimer);
+                    $(defparams.fixedIcon.wrap).show().addClass(defparams.fixedIcon.class.wrapActive);
+                } else {
+                    $(defparams.fixedIcon.wrap).removeClass(defparams.fixedIcon.class.wrapActive);
+                    _.displayTimer = setTimeout(function () {
+                        $(defparams.fixedIcon.wrap).hide();
+                    }, 500);
+                }
+            },
+            setFixedIcon: function () {
+                var _ = this,
+                    $window = $(window);   
+                var winWidth = $window.width();
+                if(winWidth <= 1200) {
+                    $(defparams.fixedIcon.wrap).addClass(defparams.fixedIcon.class.wrapFix);
+                } else {
+                    $(defparams.fixedIcon.wrap).removeClass(defparams.fixedIcon.class.wrapFix);
+                }
+            }
+        }
+        var popupManager = {
+            init: function () {
+                var _ = this;
+                _.bindEvents();
+            },
+            bindEvents: function () {
+                var _ = this,
+                    $document = $(document);
+                
+                _.commonAction();
+                $document.on('click', defparams.recentPopup.deleteBtn, $.proxy(_.deleteItem, _));
+                $document.on('click', defparams.recentPopup.AllDeleteBtn, $.proxy(_.deleteAllItem, _));
+                $document.on('click', ['data-target-popup="goods-share-popup"'], $.proxy(_.pushUrl, _));
+                $document.on('click', defparams.sharePopup.urlWrap, $.proxy(_.copyUrl, _));
+            },
+            commonAction: function () {        
+                $('[data-target-popup]').click(function () {
+                    var $this = $(this);
+
+                    var popupId = $this.attr('data-target-popup') || $this.data('target-popup');
+                    // 사용자 인증이 필요한지 유무 체크
+                    var auth = $this.attr('auth');
+                    // 사용자 인증이 활성화 되었는지 체크
+                    var isActive = $this.attr('is-active');
+                    var redirectUrl = $this.attr('gl_request_uri');
+
+                    var showPopupFunction = function() {
+                        $('#' + popupId).fadeIn(300);
+                        if(!$this.hasClass('popup-bg-none')) {
+                            $('.common-popup-bg').fadeIn(300);
+                            // 터치무브와 마우스휠 스크롤 방지     
+                            $('body').css({'overflow': 'hidden', 'height': '100%'});
+                            $('body').on('scroll touchmove mousewheel', function(event) { 
+                                event.preventDefault();
+                                event.stopPropagation();     
+                                return false;
+                            });
+                        }
+                    };
+
+                    if(auth) {
+                        if(isActive == 'false') {
+                            //텍스트 하드코딩
+                            openDialogConfirm('이용하시려면 로그인이 필요합니다!<br/>로그인하시겠습니까?', 400, 'auto', function() {
+                                top.location.href="/member/login?return_url="+redirectUrl;
+                            }, null);
+                            return;
+                        }
+                        showPopupFunction();
+
+                    } else {
+                        showPopupFunction();
+                    }
+
+                    
+                });
+                $('[data-target-close]').click(function () {
+                    var popupId = $(this).attr('data-target-close') || $(this).data('target-close')
+                    $('#' + popupId).fadeOut(300);
+                    if(!$(this).hasClass('popup-bg-none')) {
+                        $('.common-popup-bg').fadeOut(300);
+                        // 터치무브 및 마우스휠 스크롤 가능
+                        $('body').css({'overflow': 'auto', 'height': '100%'});
+                        $('body').off('scroll touchmove mousewheel'); 
+                    }
+                });
+                $('[data-target-tab]').click(function () {
+                    var tabId = $(this).attr('data-target-tab') || $(this).data('target-tab'),
+                        thisClass = $(this).attr('data-target-this') || $(this).data('target-this'),
+                        closeTab = $(this).attr('data-target-tab-close') || $(this).data('target-tab-close');
+                    $('.' + thisClass).removeClass(thisClass + '--active');
+                    $(this).addClass(thisClass + '--active');
+                    $('.' + closeTab).hide();
+                    $('#' + tabId).show();
+                });
+                $('[data-img-src]').click(function () {
+                    var currentSrc = $(this).attr('src'),
+                        src = $(this).attr('data-img-src') || $(this).data('img-src'),
+                        changeSrc = $(this).attr('data-change-img-src') || $(this).data('change-img-src');
+                    
+                    if(currentSrc == src) {
+                        $(this).attr('src', changeSrc);
+                    } else if(currentSrc == changeSrc) {
+                        $(this).attr('src', src);
+                    }
+                });
+                $('[data-target-open-next]').click(function () {
+                    var openTargetParent = $(this).attr('data-target-open-next') || $(this).data('data-target-open-next'),
+                        btnClass = $(this).attr('data-target-btn') || $(this).data('target-btn');
+                        btnActiveClass = $(this).attr('data-target-btn') + "--active" || $(this).data('target-btn') + "--active";
+                    if($(this).find("." + btnClass).hasClass(btnActiveClass)) {
+                        $(this).find("." + btnClass).removeClass(btnActiveClass);
+                        $(this).next().slideUp();
+                    } else {
+                        var self = this;
+                        $("." + btnClass).removeClass(btnActiveClass);
+                        $(this).find("." + btnClass).addClass(btnActiveClass);
+                        $('.' + openTargetParent).next().slideUp();
+                        $(this).next().slideDown(400, function () {
+                            if (typeof kakaoMap === 'function') {
+                                var address = $(self).data('address');
+                                kakaoMap($('.map-api-area', $(self).next())[0], address);
+                            }
+                        });
+                    }
+                });
+
+                //input textarea 임시 시안 수정 전
+                $(".default-input__txt").each(function(){
+                    if($(this).val() != ""){
+                        $(this).prev().addClass("default-input__title--active");
+                    }
+                });
+
+                $(".default-textarea__txt textarea").each(function(){
+                    if($(this).val() != ""){
+                        $(this).parent().prev().addClass("default-textarea__title--active");
+                    }
+                });
+
+                function activeInput(){
+                    $(this).prev().addClass("default-input__title--active");
+                }
+
+                function unactiveInput(){
+                    if($(this).val() == "") {
+                        $(this).prev().removeClass("default-input__title--active");
+                    }
+                }
+
+                function activeText(){
+                    $(this).parent().prev().addClass("default-textarea__title--active");
+                }
+
+                function unactiveText(){
+                    if($(this).val() == "") {
+                        $(this).parent().prev().removeClass("default-textarea__title--active");
+                    }
+                }
+
+                $("#layout_body").on("click focus change", ".default-input__txt", activeInput);
+                $("#layout_body").on("focusout", ".default-input__txt", unactiveInput);
+
+
+                $("#layout_body").on("click focus change", ".default-textarea__txt textarea", activeText);
+                $("#layout_body").on("focusout", ".default-textarea__txt textarea", unactiveText);
+
+                 //input textarea 임시 시안 수정 전
+                $(".default-input__txt").each(function(){
+                    if($(this).val() != ""){
+                        $(this).prev().addClass("default-input__title--active");
+                    }
+                });
+
+                $(".default-textarea__txt textarea").each(function(){
+                    if($(this).val() != ""){
+                        $(this).parent().prev().addClass("default-textarea__title--active");
+                    }
+                });
+
+                function activeInput(){
+                    $(this).prev().addClass("default-input__title--active");
+                }
+
+                function unactiveInput(){
+                    if($(this).val() == "") {
+                        $(this).prev().removeClass("default-input__title--active");
+                    }
+                }
+
+                function activeText(){
+                    $(this).parent().prev().addClass("default-textarea__title--active");
+                }
+
+                function unactiveText(){
+                    if($(this).val() == "") {
+                        $(this).parent().prev().removeClass("default-textarea__title--active");
+                    }
+                }
+
+                $("#layout_body").on("click", ".default-input__txt", activeInput);
+                $("#layout_body").on("focus", ".default-input__txt", activeInput);
+                $("#layout_body").on("focusout", ".default-input__txt", unactiveInput);
+
+
+                $("#layout_body").on("click", ".default-textarea__txt textarea", activeText);
+                $("#layout_body").on("focus", ".default-textarea__txt textarea", activeText);
+                $("#layout_body").on("focusout", ".default-textarea__txt textarea", unactiveText);
+            },
+            deleteItem: function (e) {
+                var _ = this,
+                    target = e.target;
+
+                $.ajax({
+                    type: 'post',
+                    url: '/mypage/deleteLatelyView',
+                    data: {
+                        'lately_idx': $(target).data('lately_idx')
+                    },
+                    success: function (res) {
+                        if (res.status === true) {
+                            if($(target).closest(defparams.recentPopup.list).find(defparams.recentPopup.item).length <= 1) {
+                                $(target).closest(defparams.recentPopup.listWrap).remove();
+                            } else {
+                                $(target).closest(defparams.recentPopup.item).remove();
+                            }
+    
+                            if(!$(defparams.recentPopup.content).find(defparams.recentPopup.list).length) {
+                                _.deleteAllItem();
+                            }
+                        }
+                    }
+                })
+
+
+            },
+            deleteAllItem: function (e) {
+
+                var deleteAction = function () {
+                    $(defparams.recentPopup.listWrap).remove();
+                    $(defparams.recentPopup.content).addClass(defparams.recentPopup.class.contentInactive);
+                    $(defparams.recentPopup.contentEmpty).addClass(defparams.recentPopup.class.contentEmptyactive);
+                    $(defparams.recentPopup.footer).addClass(defparams.recentPopup.class.footerInactive);
+                };
+
+                if (e === undefined) {
+                    deleteAction();
+                } else {
+                    var idxList = [];
+                    $('#recent-popup .footer-recent__content-item .footer-recent__content-item-delete').each(function (i, e) {
+                        idxList.push($(e).data('lately_idx'));
+                    });
+
+                    $.ajax({
+                        type: 'post',
+                        url: '/mypage/deleteLatelyView',
+                        data: {
+                            'lately_idx': idxList
+                        },
+                        success: function (res) {
+                            if (res.status === true) {
+                                deleteAction();
+                            }
+                        }
+                    });
+                }
+            },
+            getUrl: function () {
+                var url = window.location.href || document.URL;
+                return url;
+            },
+            pushUrl: function () {
+                var _ = this;
+                $(defparams.sharePopup.urlBox).empty();
+                $(defparams.sharePopup.urlBox).val(_.getUrl());
+            },
+            copyUrl: function () {
+                $(defparams.sharePopup.urlBox).select();
+                document.execCommand('copy');
+            },
+        }
+        var moveToTop = {
+            init: function () {
+                var _ = this;
+                _.bindEvents();
+            },
+            bindEvents: function () {
+                var _ = this;
+                $(defparams.moveTopBtn).click(function(){
+                    $( 'html, body' ).animate( { scrollTop : 0 }, 300 );
+                    return false;
+                });
+            }
+        }
+
+        var init = function () {
+            gnbManager.init();
+            searchManager.init();
+            fixedIconManager.init();
+            popupManager.init();
+            moveToTop.init();
+        }
+        return {
+            init: init,
+        };
+    })();
+    $(function () {
+        commonMain.init();
+    });
+
+
+
+})();

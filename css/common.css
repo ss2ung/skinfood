@@ -1,0 +1,217 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('Pretendard-SemiBold.eot');
+    src: url('Pretendard-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('Pretendard-SemiBold.woff2') format('woff2'),
+        url('Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('Pretendard-Regular.eot');
+    src: url('Pretendard-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Pretendard-Regular.woff2') format('woff2'),
+        url('Pretendard-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('Pretendard-Medium.eot');
+    src: url('Pretendard-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Pretendard-Medium.woff2') format('woff2'),
+        url('Pretendard-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 홈페이지에 들어가는 공통적인 요소들이 쓰여짐 */
+
+html,body {
+    font-size: 62.5%;
+    font-family: 'Pretendard';
+    background-color: #EDE9E6;
+}
+
+body {
+    font-size: 16px;
+    color: #333;
+    list-style: 1;
+    overflow-x: hidden
+}
+
+button {
+    cursor: pointer;
+}
+
+.inner {
+    max-width: 1440px;
+    width: calc(100% - 30px);
+    margin: 0 auto;
+}
+
+
+.header{
+    width: 100%;
+    height: 100px;
+    border-bottom:1px solid #dddddd2c ;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+
+}
+
+
+.header .inner {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .inner .logo a img {
+    width: 100%;
+    height: 43px;
+}
+
+.header .inner .menu-wrap{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header .inner .pc-nav {
+    height: 100%;
+   
+}
+
+
+.header .inner .pc-nav .gnb{
+    height: 100%;
+    display: flex;
+}
+.header .inner .pc-nav .gnb > li{
+    position: relative;
+}
+.header .inner .pc-nav .gnb > li .gnb-item{
+    display: block;
+    line-height: 100px;
+    padding: 0 10px;
+}
+
+.header .inner .pc-nav .gnb > li  .subcont{
+    /* display: none; */
+    width: 1440px;
+    height: 300px;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    background-color: #fff;
+    display: none;
+}
+
+
+.header .inner .pc-nav .gnb > li:hover .subcont {
+    display: block;
+}
+
+.header .inner .pc-nav .gnb > li  .subcont > li  a{
+    display: block;
+    padding: 10px 0;
+}
+
+.header .inner .pc-nav .gnb > li  .subcont > li .sub-list {
+    width:1280px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 10%;
+    display: flex;
+    align-items:flex-start;
+    column-gap: 80px;
+    flex-wrap: wrap;
+    word-break: keep-all;
+    display: none;
+
+}
+
+.header .inner .pc-nav .gnb > li  .subcont > li .sub-list a{
+    display: block;
+    padding: 10px 0;
+}
+
+.header .inner .pc-nav .gnb > li  .subcont > li:hover .sub-list {
+    display: flex;
+}
+
+
+.header .inner .icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.header .inner .moblie-nav {
+    width: 50%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    display: none;
+}
+
+.header .inner .moblie-nav .close {
+    display: block;
+    position:absolute;
+    right: 25px;
+    top: 30px;
+    border: 0;
+    background-color: transparent;
+}
+
+
+.header .inner .moblie-nav .gnb {
+    margin: 100px 60px;
+}
+.header .inner .moblie-nav .gnb > li{
+    border-bottom: 1px solid #333;
+}
+.header .inner .moblie-nav .gnb > li .gnb-item {
+    display: block;
+    padding: 15px 0;
+    font-size: 24px;
+    position: relative;
+}
+
+.header .inner .moblie-nav .gnb > li .gnb-item::before {
+    content: '';
+    width: 15px;
+    height: 20px;
+    background: url('../img/icon/arrow_key_다운.svg') center center / 100% no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translateX(-50%);
+}
+.header .inner .moblie-nav .gnb > li .subcont {
+    display: none;
+}
+
+
+.header .inner .icon .moblie-menu {
+    border: 0;
+    background-color: transparent;
+}
+
