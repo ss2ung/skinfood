@@ -98,6 +98,22 @@
             });
         }
 
+
+        $(function () {
+            let moblieNav = $('.header .moblie-nav');
+            let openBtn = $('.moblie-menu')
+            let depth01 = $('.gnb >li');
+            let depth02 = $('.subcont');
+            let closeBtn = $('.close');
+
+            openBtn.click(function () {
+                moblieNav.addClass('on')
+            });
+            closeBtn.click(function () {
+                moblieNav.removeClass('on')
+            });
+        });
+
     </script>
 
 </head>
@@ -121,7 +137,7 @@
                                         <a href="#">유형별</a>
                                         <ul class="sub-list">
                                             <li>
-                                                <a href="#">스킨케어</a>
+                                                <span>스킨케어</span>
                                                 <ul>
                                                     <li><a href="#">에센스/세럼/앰플</a></li>
                                                     <li><a href="#">로션</a></li>
@@ -133,14 +149,14 @@
                                             </li>
 
                                             <li>
-                                                <a href="#">선케어</a>
+                                                <span>선케어</span>
                                                 <ul>
                                                     <li><a href="#">선케어</a></li>
                                                 </ul>
                                             </li>
 
                                             <li>
-                                                <a href="#">헤어/바디</a>
+                                                <span>헤어/바디</span>
                                                 <ul>
                                                     <li><a href="#">바디케어</a></li>
                                                     <li><a href="#">헤어케어</a></li>
@@ -148,14 +164,14 @@
                                             </li>
 
                                             <li>
-                                                <a href="#">남성</a>
+                                                <span>남성</span>
                                                 <ul>
                                                     <li><a href="#">스킨케어</a></li>
                                                 </ul>
                                             </li>
 
                                             <li>
-                                                <a href="#">마스크</a>
+                                                <span>마스크</span>
                                                 <ul>
                                                     <li><a href="#">시트 마스크 팩</a></li>
                                                     <li><a href="#">모델링 팩</a></li>
@@ -163,7 +179,7 @@
                                             </li>
 
                                             <li>
-                                                <a href="#">메이크업</a>
+                                                <span>메이크업</span>
                                                 <ul>
                                                     <li><a href="#">베이스메이크업</a></li>
                                                     <li><a href="#">아이메이크업</a></li>
@@ -172,7 +188,7 @@
                                             </li>
 
                                             <li>
-                                                <a href="#">미용소품</a>
+                                                <span>미용소품</span>
                                                 <ul>
                                                     <li><a href="#">미용소품</a></li>
                                                 </ul>
@@ -249,7 +265,6 @@
                                         </ul><!-- sub-list end -->
                                     </li>
 
-
                                     <li>
                                         <a href="#">패키지</a>
                                     </li>
@@ -257,7 +272,11 @@
                                     <li>
                                         <a href="#">비건</a>
                                     </li>
+
                                 </ul><!-- subcont end -->
+
+
+
                             </li>
                             <li>
                                 <a href="#" class="gnb-item">Brand</a>
@@ -273,6 +292,7 @@
                             </li>
                         </ul><!-- gnb -->
                     </nav>
+
                 </div>
 
                 <div class="icon">
@@ -1622,7 +1642,7 @@
                     <div class="riview-box">
                         <div class="swiper reviewSwiper">
                             <div class="swiper-wrapper">
-                                
+
                                 <div class="swiper-slide">
                                     <div class="box">
                                         <figure>
@@ -1634,9 +1654,11 @@
                                             <img src="img/별.png" alt="리뷰 별 5개">
                                         </figure>
                                         <ul>
-                                            <li><h4>붉은 피부 이제 멈춰</h4></li>
+                                            <li>
+                                                <h4>붉은 피부 이제 멈춰</h4>
+                                            </li>
                                             <li>#포테이토 마데카소사이드 패드</li>
-                                            <li>도톰하고 폭신폭신한.. 역시 패드는 스킨푸드! <br> 
+                                            <li>도톰하고 폭신폭신한.. 역시 패드는 스킨푸드! <br>
                                                 당근 패드처럼 촉촉하고 너무 좋아요! 색소침착에도 효과 좋고<br>
                                                 진정&수분 충전까지 또렷하게 느낄 수 있어서 좋았어요!
                                             </li>
@@ -1645,7 +1667,7 @@
                                         <button>리뷰 자세히 보기</button>
                                     </div><!-- r-txt end -->
                                 </div><!-- swiper-slide end -->
-                               
+
                                 <div class="swiper-slide">
                                     <div class="box">
                                         <figure>
@@ -1657,10 +1679,12 @@
                                             <img src="img/별.png" alt="리뷰 별 5개">
                                         </figure>
                                         <ul>
-                                            <li><h4>끈적임 없이 촉촉한 선</h4></li>
+                                            <li>
+                                                <h4>끈적임 없이 촉촉한 선</h4>
+                                            </li>
                                             <li>#베리 수분 선크림</li>
                                             <li>수분이 많이 부족한 피부이고 끈적이는 느낌을 너무 싫어해요<br>
-                                                그런데 새로나온 베리 수분 선크림 정말 좋네요. 딱 제가 원하던<br> 
+                                                그런데 새로나온 베리 수분 선크림 정말 좋네요. 딱 제가 원하던<br>
                                                 선크림입니다. 발림성도 좋고 수분도 지켜주는 듯한 느낌적인 느낌!
                                             </li>
                                         </ul>
@@ -1668,7 +1692,7 @@
                                         <button>리뷰 자세히 보기</button>
                                     </div><!-- r-txt end -->
                                 </div><!-- swiper-slide end -->
-                               
+
                                 <div class="swiper-slide">
                                     <div class="box">
                                         <figure>
@@ -1680,10 +1704,12 @@
                                             <img src="img/별.png" alt="리뷰 별 5개">
                                         </figure>
                                         <ul>
-                                            <li><h4>각질제거 인생템 발견!</h4></li>
+                                            <li>
+                                                <h4>각질제거 인생템 발견!</h4>
+                                            </li>
                                             <li>#딸기슈가 푸드마스크</li>
                                             <li>피부가 예민한 편이라 언제부턴가 스크럽 제품은 아예 구매 안하게<br>
-                                                되더라구요 ㅠㅠ 근데 딸기향에 혹해서 구매해보았습니다!!<br> 
+                                                되더라구요 ㅠㅠ 근데 딸기향에 혹해서 구매해보았습니다!!<br>
                                                 알갱이가 살아있고 더 쫀득해요. 각질관리용으로 잘 사용해볼게용♥
                                             </li>
                                         </ul>
@@ -1695,8 +1721,8 @@
                             </div><!-- swiper-wrapper end-->
 
                             <div class="swiper-pagination"></div>
-                    </div><!-- riview-box end -->
-                </div><!-- inner end -->
+                        </div><!-- riview-box end -->
+                    </div><!-- inner end -->
             </section><!-- review end -->
 
             <section class="insta">
@@ -1705,7 +1731,7 @@
                         <h3>Instagram</h3>
                         <a href="#">@SKINFOOD_OFFICIAL</a>
                     </div><!-- tit end -->
-                    
+
                     <div class="insta-img">
                         <a href="#"><img src="img/인스타/insta-01.jpg" alt="인스타이미지01"></a>
                         <a href="#"><img src="img/인스타/insta-02.jpg" alt="인스타이미지02"></a>
@@ -1744,7 +1770,7 @@
                             <a href="#"><img src="img/logo.png" alt="스킨푸드"></a>
                         </h4><!-- footer-logo -->
                         <ul class="info-list">
-                            <li>상호: (주)스킨푸드  대표이사: 구도곤  Tel: 080-012-7878 Fax: 02-597-4199 </li>
+                            <li>상호: (주)스킨푸드 대표이사: 구도곤 Tel: 080-012-7878 Fax: 02-597-4199 </li>
                             <li>주소: 서울특별시 강남구 테헤란로 325, 5층 스킨푸드 사업자등록번호: 125-81-54503 </li>
                             <li>통신사업자번호: 제2023-서울강남-06725호 개인정보 보호 책임자: 이세희</li>
                             <li>제휴문의: webmaster@theskinfood.com 마케팅제휴문의: skinfood_S015000@theskinfood.com </li>
@@ -1768,52 +1794,52 @@
 
     <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            pagination: {
-                el: ".swiper-pagination",
-                type: "progressbar",
-            },
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-            }
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    type: "progressbar",
+                },
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }
 
 
-        });
+            });
 
-        /* line */
+            /* line */
 
-        var swiper = new Swiper(".lineSwiper", {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            effect: "fade",
-            loop: true,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            autoplay: {
-                delay: 4500
-            }
-        });
+            var swiper = new Swiper(".lineSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                effect: "fade",
+                loop: true,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                autoplay: {
+                    delay: 4500
+                }
+            });
 
-       /* review */
-        var swiper = new Swiper(".reviewSwiper", {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            effect: "fade",
-            loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-        renderBullet: function (index, className) {
-          return '<span class="' + className + '">' + (index + 1) + "</span>";
-        },
-      },
-    });
+            /* review */
+            var swiper = new Swiper(".reviewSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                effect: "fade",
+                loop: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                        return '<span class="' + className + '">' + (index + 1) + "</span>";
+                    },
+                },
+            });
     </script>
 </body>
 
