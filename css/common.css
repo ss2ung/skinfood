@@ -49,7 +49,7 @@ body {
 }
 
 button {
-    cursor: pointer;
+    cursor:  ;
 }
 
 .inner {
@@ -213,5 +213,62 @@ button {
 .header .inner .icon .moblie-menu {
     border: 0;
     background-color: transparent;
+}
+
+
+.footer {
+    margin-top: 500px;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.footer .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.footer .nav-wrap .util-list {
+    display: flex;
+    gap: 50px;
+}
+
+.footer .nav-wrap .sns-list {
+    display: flex;
+    gap:30px
+}
+
+.footer .info-wrap {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.footer .info-wrap .info{
+    display: flex;
+    align-items: center;
+}
+.footer .info-wrap .info .footer-logo a{
+    width: 60%;
+}
+
+.footer .info-wrap .info .footer-logo img {
+    width: 100%;
+}
+
+.footer .info-wrap .info .info-list{
+    line-height: 1.5;
+}
+
+
+.footer .info-wrap .cs-info {
+    line-height: 1.5;
+}
+
+.footer .info-wrap .cs-info  li:nth-child(2) {
+    font-size: 22px;
+    font-weight: 600;
 }
 
