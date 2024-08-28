@@ -652,6 +652,7 @@
 }
 
 
+
 @media screen and (max-width: 1024px) {
     
     .main-visaul .mySwiper .swiper-slide .txt {
@@ -992,6 +993,8 @@
 
 
 
+
+
 }/* 1024 */
 
 
@@ -1037,3 +1040,77 @@
     
 
 }/* 960 */
+
+
+@media screen and (max-width: 768px) {
+
+    .line .list .line-slide .lineSwiper {
+        width: 78%;
+    }
+
+    .event .inner .e-list .box {
+        height: 450px;
+        cursor: pointer;
+    }
+    .event .inner .e-list .box .txt-wrap {
+        margin: 15px;
+    }
+
+    .event .inner .e-list .box .txt-wrap p {
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+    .event .inner .e-list .box .txt-wrap h5 {
+        font-size: 22px;
+    }
+
+    .event .inner .e-list .box .txt-wrap button img {
+        display: none;
+    }
+
+
+    .line .list .line-slide .lineSwiper .swiper-slide .big-box .txt-box {
+        font-size: 32px;
+    }
+
+    .line .list .line-slide .lineSwiper .swiper-wrapper .swiper-slide .big-box {
+        width: 49%;
+    }
+    .line .list .line-slide .lineSwiper .swiper-slide .small-list {
+        width: 49%;
+    }
+
+    .line .swiper-button-next, .line .swiper-button-prev {
+        top: 55%;
+    }
+
+    .best {
+        margin: 390px auto 80px;
+    }
+
+    .best .inner .tit h3 {
+        font-size: 40px;
+    }
+    
+    .best .inner .tit p {
+        font-size: 16px;
+    }
+
+    .tab-wrap .tit-list > li a {
+        font-size: 14px;
+    }
+
+    .swiper-horizontal>.swiper-pagination-bullets,
+     .swiper-pagination-bullets.swiper-pagination-horizontal, 
+     .swiper-pagination-custom, .swiper-pagination-fraction {
+        top: 150px;
+        left: 60px;
+     }
+
+     .riview-box .swiper-slide .r-txt ul li:last-child {
+        font-size: 13px;
+     }
+
+
+}/* 768px */
