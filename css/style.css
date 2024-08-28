@@ -1300,5 +1300,30 @@
         left: 0px;
     }
 
+    .insta .insta-img {
+        flex-wrap: wrap;
+    }
+
+    .insta .insta-img a {
+        width: 45%;
+        height: 45%;
+    }
+
+    .insta .insta-img a:nth-child(4) {
+        display: block;
+    } 
+
+    .footer .nav-wrap {
+        display: block;
+    }
+
+    .footer .nav-wrap .util-list {
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .footer .nav-wrap .sns-list {
+        
+    }
 
 }/* 390px */
